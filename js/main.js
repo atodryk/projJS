@@ -85,9 +85,47 @@ function foo(){
 else {
   alert('This telephone or email already exists - please select another');
 }}
+
+var helper1= [];
+var helper2= [];
+var helper3= [];
+function sortTable(){
+var tab4= document.querySelector('.tab1');
+
+for (var i = 1; i<tab4.rows.length; i++){
+  var cellVal = parseFloat(tab4.rows[i].cells[2].innerHTML);
+  console.log(cellVal);
+  helper1[i-1] = cellVal;
+    var name1=tab4.rows[i].cells[0].innerHTML;
+  var name2=tab4.rows[i].cells[1].innerHTML;
+  var tel=tab4.rows[i].cells[2].innerHTML;
+  var mail= tab4.rows[i].cells[3].innerHTML;
+ var person= {firstName:name1,lastName: name2, tel: cellVal, mail: mail};
+  helper2[i-1] = person;
+  }
+  helper1.sort(function(a,b){return a-b});
+for (var j= 0; j<helper1.length; j++){
+  for (var k = 0; k<helper1.length; k++){
+  if (helper1[j] === helper2[k].tel){
+    helper3[j]=helper2[k];
+    }
+  }
+}
+  for (var z = 1; z<tab4.rows.length; z++){
+tab4.rows[z].cells[0].innerHTML= helper3[z-1].firstName;
+  tab4.rows[z].cells[1].innerHTML= helper3[z-1].lastName;
+  tab4.rows[z].cells[2].innerHTML=helper3[z-1].tel;
+  tab4.rows[z].cells[3].innerHTML=helper3[z-1].mail;
+}
+}
+
+
 btn1.addEventListener('click', function(){
     foo();
 })
 btn2.addEventListener('click',function(){
     randomizer();
 })
+btn3.addEventListener('click', function(){
+    sortTable()
+  })
